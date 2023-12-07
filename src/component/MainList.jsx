@@ -11,7 +11,7 @@ const selectOptions = [
     { value: "lib", label: "도서관" },
     { value: "dorm", label: "기숙사" },
     { value: "int", label: "국제교류원" },
-    { value: "cse", label: "컴퓨터 공학부" }
+    { value: "cse", label: "컴퓨터공학부" }
 ]
 
 const formatTitle = (value) => {
@@ -41,7 +41,6 @@ const SelectBox = (props) => {
         </select>
     )
 }
-
 const MainList = (props) => {
     // 공지 데이터 초기값 세팅
     const [dataList, setDataList] = useState([])
@@ -124,6 +123,12 @@ const MainList = (props) => {
             })
         }
     }
+    const enterKey = (e) => {
+        if (e.keyCode === 13) {
+            // 엔터키가 눌렸을 때
+            onSearch()
+        }
+    }
     /**
      * search 데이터 변경시 getBoardList 호출
      */
@@ -135,6 +140,7 @@ const MainList = (props) => {
     useEffect(() => {
        setTitle(props.nevCategory1)
        setCategory1Info(props.nevCategory1)
+       setPage(0)
        setSearch({
         num: 0,
         category1: props.nevCategory1
@@ -148,7 +154,7 @@ const MainList = (props) => {
                 <h1 className="mt-4 mb-4"><b>{!title? "전체 공지" : formatTitle(title)}</b></h1>
                 <div className="card mb-4">
                     <div className="card-body" >
-                        <form className="row justify-content-end">
+                        <div className="row justify-content-end">
                             <SelectBox
                                 options={selectOptions}
                                 change={onChange}
@@ -166,6 +172,7 @@ const MainList = (props) => {
                                         aria-describedby="btnNavbarSearch"
                                         name="keyword"
                                         onChange={onChange}
+                                        onKeyUp={enterKey}
                                     />
                                     <button
                                         className="btn btn-primary"
@@ -177,7 +184,7 @@ const MainList = (props) => {
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <div className="card mb-4">

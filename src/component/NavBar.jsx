@@ -21,7 +21,7 @@ function NavBar(props) {
                                 국제교류원
                             </button>
                             <button className="nav-link" value="cse"  onClick={changeList}>
-                                컴퓨터 공학부
+                                컴퓨터공학부
                             </button>
                     </div>
                 </div>
