@@ -10,7 +10,7 @@ function Header(props) {
     }
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a className="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a className="navbar-brand ps-3" href="index.html">INU 공지 모음</a>
             <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" onClick={ChangeNavHiddenYn}>
                 <TfiMenu size={30} />
             </button>

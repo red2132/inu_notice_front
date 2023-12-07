@@ -10,13 +10,16 @@ import { useState } from 'react';
 function App(props) {
     // nav바 숨김 여부
     const [navHiddenYn, setNavHiddenYn] = useState(true)
+
+    const [nevCategory1, setNevCategory1] = useState('')
+    
     return (
         <div className={navHiddenYn ? "sb-nav-fixed" : 'sb-sidenav-toggled'}>
-            <Header setNavHiddenYn={setNavHiddenYn} navHiddenYn={navHiddenYn} />
+            <Header navHiddenYn={navHiddenYn} setNavHiddenYn={setNavHiddenYn} />
             <div id="layoutSidenav">
-                <NavBar />
+                <NavBar nevCategory1={nevCategory1} setNevCategory1={setNevCategory1} />
                 <div id="layoutSidenav_content">
-                    <MainList />
+                    <MainList nevCategory1={nevCategory1}/>
                     <Footer />
                 </div>
             </div>
