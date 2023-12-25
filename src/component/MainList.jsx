@@ -1,8 +1,25 @@
+/**
+ * custom Hook 만들어 보기
+ */
 import { FaSearch } from "react-icons/fa"
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import '../assets/Paging.css';
-import Pagination from "react-js-pagination";
+import { useEffect, useState, useRef  } from 'react'
+import axios from 'axios'
+import '../assets/Paging.css'
+import Pagination from "react-js-pagination"
+
+/**
+ * 첫 렌더링 때 함수 실행 막는 custom hook
+ * @param {func} func // 함수
+ * @param {object} deps // useEffect 실행 여부 object
+ */
+const useDidMountEffect = (func, deps) => {
+    const didMount = useRef(false)
+  
+    useEffect(() => {
+      if (didMount.current) func()
+      else didMount.current = true
+    }, deps)
+  }
 
 // selectBox 옵션
 const selectOptions = [
@@ -13,9 +30,13 @@ const selectOptions = [
     { value: "int", label: "국제교류원" },
     { value: "cse", label: "컴퓨터공학부" }
 ]
-
+/**
+ * selectBox value값 표기를 label값으로 변경하는 함수
+ * @param {string} value 
+ * @returns {string} label
+ */
 const formatTitle = (value) => {
-    return selectOptions.find((element) => element.value === value).label;
+    return selectOptions.find((element) => element.value === value).label
 
 }
 // SelectBox 컴포넌트
@@ -68,7 +89,7 @@ const MainList = (props) => {
      */
     const getBoardList = async () => {
 
-        const queryString = Object.entries(search).map((e) => e.join('=')).join('&');
+        const queryString = Object.entries(search).map((e) => e.join('=')).join('&')
         console.log('queryString: ', queryString)
         try {
             let resp = await (await axios.get("http://localhost:8080/articlesBbs?" + queryString)).data
@@ -88,9 +109,9 @@ const MainList = (props) => {
      */
     const pageButtonClick = (page) => {
         // 현재 페이지 변경
-        setPage(prevState => prevState = page)
+        setPage(page)
         // 해당 페이지 데이터 호출
-        setSearch(prevState => prevState = {
+        setSearch({
             ...search,
             num: page - 1,
         })
@@ -102,11 +123,11 @@ const MainList = (props) => {
     const onChange = (e) => {
         const { value, name } = e.target
         if (name === 'category1') {
-            setCategory1Info(prevState => prevState = value)
+            setCategory1Info(value)
         }
 
         if (name === 'keyword') {
-            setKeywordInfo(prevState => prevState = value)
+            setKeywordInfo(value)
         }
     }
     /**
@@ -123,6 +144,10 @@ const MainList = (props) => {
             })
         }
     }
+    /**
+     * 엔터키 함수
+     * @param {SyntheticBaseEvent} e 
+     */
     const enterKey = (e) => {
         if (e.keyCode === 13) {
             // 엔터키가 눌렸을 때
@@ -130,23 +155,32 @@ const MainList = (props) => {
         }
     }
     /**
-     * search 데이터 변경시 getBoardList 호출
+     * category1에 대한 정보 세팅하는 함수
      */
-    useEffect(() => {
-        getBoardList()
-        console.log('검색데이터:', search)
-    }, [search])
+    const category1SetInfo = () => {
+        setTitle(props.nevCategory1)
+        setCategory1Info(props.nevCategory1)
+        setPage(0)
+        setSearch({
+         num: 0,
+         category1: props.nevCategory1
+     })
+    }
 
-    useEffect(() => {
-       setTitle(props.nevCategory1)
-       setCategory1Info(props.nevCategory1)
-       setPage(0)
-       setSearch({
-        num: 0,
-        category1: props.nevCategory1
-    })
+    /**
+     * navbar 클릭시 카테고리 변경
+     */
+    useDidMountEffect(() => {
+        category1SetInfo()
     }, [props.nevCategory1])
 
+    /**
+     * search 데이터 변경시 getBoardList 호출
+     */
+        useEffect(() => {
+            getBoardList()
+            console.log('검색데이터:', search)
+        }, [search])
 
     return (
         <main>

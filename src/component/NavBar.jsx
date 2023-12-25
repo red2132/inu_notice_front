@@ -1,6 +1,11 @@
 function NavBar(props) {
+    /**
+     * 
+     * @param {SyntheticBaseEvent} e
+     * value값 전달하는 함수 
+     */
     const changeList = (e) => {
-        props.setNevCategory1(prevState => prevState = e.target.value)
+        props.setNevCategory1(e.target.value)
     }
     return (
         <div id="layoutSidenav_nav">
