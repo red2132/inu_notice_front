@@ -1,6 +1,3 @@
-/**
- * custom Hook 만들어 보기
- */
 import { FaSearch } from "react-icons/fa"
 import { useEffect, useState, useRef  } from 'react'
 import axios from 'axios'
