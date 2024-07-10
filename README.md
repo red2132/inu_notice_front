@@ -1,8 +1,13 @@
-# React + Vite
+# 대학교 공지 모아보기 서비스(frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 개발 목표
+  1) 노션을 이용한 협업
+  2) React 훅을 적극적으로 활용한 게시판 개발
+     - componet 분리 및 활용
+     - useEffect를 이용해 원하는 시점에서 함수 사용
 
-Currently, two official plugins are available:
+## 개발 환경
+  사용 언어: javascript(ES6)
+  개발환경: React, Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  
